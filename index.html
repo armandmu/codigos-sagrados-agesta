@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#182e35">
+  <meta name="description" content="Catálogo consultable de Códigos Sagrados Numéricos de Agesta, con búsqueda por palabras y rosario manual de 45 cuentas.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Códigos Sagrados · Biblioteca y rosario</title>
+  <script defer src="data/catalogo.js"></script>
+  <script defer src="data/paginas.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#vista-explorar" aria-label="Códigos Sagrados, inicio"><span class="brand-symbol" aria-hidden="true">✧</span><span>CÓDIGOS <strong>SAGRADOS</strong></span></a>
+    <nav class="nav" aria-label="Navegación principal">
+      <button type="button" class="nav-link active" data-view="explorar">Biblioteca</button>
+      <button type="button" class="nav-link" data-view="contador">Mi rosario</button>
+      <button type="button" class="nav-link" data-view="fuente">Documento</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="explorar" class="view is-visible" aria-labelledby="explorar-titulo">
+      <div class="hero wrap">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> BIBLIOTECA DIGITAL DE AGESTA</div>
+          <h1 id="explorar-titulo">Encuentra el código<br><em>que estás buscando.</em></h1>
+          <p>Explora la recopilación de Diana Cerón Otoya, busca por palabras o por número y lleva cada código a un rosario de 45 repeticiones.</p>
+          <div class="hero-facts"><span><span id="number-coded">—</span> entradas con código</span><span class="fact-dot">·</span><span>115 páginas de referencia</span></div>
+        </div>
+        <div class="hero-mark" aria-hidden="true"><span class="orb orb-outer"></span><span class="orb orb-mid"></span><span class="orb orb-inner">45</span><span class="orb-star s1">✦</span><span class="orb-star s2">✧</span><span class="orb-star s3">✧</span></div>
+      </div>
+
+      <div class="search-panel wrap" role="search">
+        <label class="search-label" for="search">¿Qué te gustaría encontrar?</label>
+        <div class="search-field"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.1"/><path d="m16 16 5 5"/></svg><input id="search" type="search" autocomplete="off" placeholder="Prueba con amor, ansiedad, protección, 363…"><button id="clear-search" class="icon-button" type="button" aria-label="Borrar búsqueda" hidden>×</button></div>
+        <div class="suggestions"><span>Buscar por:</span><button type="button" data-query="amor">Amor</button><button type="button" data-query="abundancia">Abundancia</button><button type="button" data-query="protección">Protección</button><button type="button" data-query="perdón">Perdón</button><button type="button" data-query="salud">Salud</button></div>
+      </div>
+
+      <section class="catalog wrap" aria-labelledby="catalog-title">
+        <div class="catalog-header"><div><div class="eyebrow dark">EXPLORA LA RECOPILACIÓN</div><h2 id="catalog-title">Todos los códigos</h2><p id="result-count" aria-live="polite">Cargando registros…</p></div><div class="catalog-controls"><label class="sr-only" for="filter">Filtrar contenido</label><select id="filter"><option value="todos">Todas las entradas</option><option value="codigos">Con código</option><option value="notas">Notas sin número</option><option value="favoritos">Mis favoritos</option></select><label class="sr-only" for="sort">Ordenar resultados</label><select id="sort"><option value="fuente">Orden del PDF</option><option value="az">Orden alfabético</option><option value="codigo">Por código</option></select></div></div>
+        <div id="results" class="results-grid" aria-live="off"></div>
+        <div id="empty" class="empty-state" hidden><span class="empty-icon">⌕</span><h3>No hay coincidencias</h3><p>Prueba otra palabra, un sinónimo o el número del código.</p></div>
+        <div class="pagination"><button id="previous" type="button" class="outline-button" disabled>Anterior</button><span id="page-info" aria-live="polite"></span><button id="next" type="button" class="outline-button" disabled>Siguiente</button></div>
+      </section>
+    </section>
+
+    <section id="contador" class="view practice-view" aria-labelledby="practice-title">
+      <div class="wrap practice-wrap"><div class="practice-intro"><div class="eyebrow dark">A TU RITMO</div><h1 id="practice-title">Tu rosario de <em>45 cuentas.</em></h1><p>Una cuenta por repetición. Tú decides cuándo avanzar: sin temporizador, sin voz automática y sin prisas.</p></div>
+        <div id="no-selection" class="no-selection"><div class="selection-icon">✧</div><h2>Elige un código para empezar</h2><p>En la biblioteca, pulsa «Abrir rosario» junto al código que quieras repetir.</p><button type="button" class="primary-button" id="choose-code">Ir a la biblioteca</button></div>
+        <div id="practice-content" class="practice-layout" hidden>
+          <div class="beads-panel"><div class="rosary" id="rosary"><div class="rosary-track" aria-hidden="true"></div><div id="beads" class="beads"></div><div class="rosary-center"><span class="rosary-caption">REPETICIONES</span><div class="rosary-number"><span id="count">0</span><span class="slash">/</span><span class="target">45</span></div><span id="rosary-status" class="rosary-status">A tu ritmo</span></div></div><div class="rosary-instruction">Toca cada cuenta o utiliza el botón para avanzar.</div></div>
+          <div class="practice-detail"><span class="detail-label">CÓDIGO SELECCIONADO</span><h2 id="selected-title"></h2><div id="selected-code" class="big-code"></div><p id="selected-description" class="selected-description"></p><span id="multi-hint" class="multi-hint" hidden>Es una secuencia: pronuncia todos sus números en cada repetición.</span><div class="action-stack"><button id="increment" type="button" class="primary-button increment"><span>Marcar una repetición</span><span class="plus-symbol">+</span></button><div class="secondary-actions"><button type="button" id="decrement" class="outline-button">− Deshacer una</button><button type="button" id="reset" class="text-button">Reiniciar</button></div></div><p class="keyboard-hint">También puedes usar la barra espaciadora. Tu avance queda guardado en este navegador.</p><button type="button" id="change-code" class="change-code">← Cambiar de código</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fuente" class="view source-view" aria-labelledby="source-title"><div class="wrap source-wrap"><div class="eyebrow dark">EDICIÓN DE REFERENCIA</div><h1 id="source-title">El documento <em>original.</em></h1><p>Este catálogo procede del PDF <em>Códigos Sagrados Numéricos</em>, canalizados por José Gabriel Uribe (Agesta) y compilados por Diana Cerón Otoya, fechado el 31 de mayo de 2018.</p><div class="source-cards"><div class="source-card"><div class="source-icon">▤</div><h2>Consultar el PDF</h2><p>Accede al documento completo tal y como se facilitó. Las fichas de la biblioteca indican la página de origen.</p><a class="primary-button link-button" href="fuente.pdf" target="_blank" rel="noopener">Abrir PDF original ↗</a></div><div class="source-card"><div class="source-icon">⌕</div><h2>Leer una página</h2><p>Consulta la transcripción textual de cada página, incluidas las explicaciones que no tienen código propio.</p><label for="source-page" class="sr-only">Página del PDF</label><div class="page-picker"><select id="source-page"></select><button type="button" id="open-pdf-page" class="outline-button">Ver en PDF ↗</button></div></div></div><article id="source-text" class="source-transcription"></article><p class="source-notice">Esta es una herramienta de consulta y práctica espiritual. Las atribuciones sobre salud del documento no constituyen evidencia clínica ni sustituyen la atención sanitaria.</p></div></section>
+  </main>
+
+  <footer class="footer"><div class="wrap footer-layout"><span>✧ CÓDIGOS SAGRADOS</span><span>Catálogo basado en la recopilación de Diana Cerón Otoya · Agesta</span><span>Sin cuenta. Sin cronómetro. A tu ritmo.</span></div></footer>
+</body>
+</html>
